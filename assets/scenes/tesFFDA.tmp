@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6d8lxdh1kmfw"]
+
+[ext_resource type="Script" path="res://assets/scripts/character_body_2d.gd" id="1_ejoa7"]
+[ext_resource type="Script" path="res://assets/scripts/init.gd" id="1_ydkj6"]
+[ext_resource type="Script" path="res://assets/scripts/CAMERA.gd" id="3_xe2g0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e7kgt"]
+radius = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2l37g"]
+size = Vector2(400, 20)
+
+[node name="Game" type="Node2D"]
+
+[node name="Init" type="Node" parent="."]
+script = ExtResource("1_ydkj6")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_ejoa7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_e7kgt")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 86)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_2l37g")
+
+[node name="CameraJoint" type="Node2D" parent="."]
+
+[node name="CAMERA" type="Camera2D" parent="CameraJoint"]
+script = ExtResource("3_xe2g0")
+follow_speed = null
+room_bonds_left_up = null
+room_bonds_right_bottom = null
+perfer_zoom = null
+override_zoom = null

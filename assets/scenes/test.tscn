@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://c6d8lxdh1kmfw"]
+
+[ext_resource type="Script" path="res://assets/scripts/character_body_2d.gd" id="1_ejoa7"]
+[ext_resource type="Script" path="res://assets/scripts/init.gd" id="1_ydkj6"]
+[ext_resource type="Script" path="res://assets/scripts/room.gd" id="3_604k2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e7kgt"]
+radius = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2l37g"]
+size = Vector2(4000, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i64jq"]
+size = Vector2(400, 400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_axgtc"]
+size = Vector2(400, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hyqhj"]
+size = Vector2(1200, 600)
+
+[node name="Game" type="Node2D"]
+
+[node name="Init" type="Node" parent="."]
+script = ExtResource("1_ydkj6")
+
+[node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
+script = ExtResource("1_ejoa7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_e7kgt")
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(0, 86)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RectangleShape2D_2l37g")
+
+[node name="CameraJoint" type="Node2D" parent="."]
+
+[node name="CAMERA" type="Camera2D" parent="CameraJoint"]
+
+[node name="Room" type="Area2D" parent="."]
+position = Vector2(897, -31)
+script = ExtResource("3_604k2")
+perfer_zoom = 1.0
+
+[node name="AREA" type="CollisionShape2D" parent="Room"]
+position = Vector2(8, -93)
+shape = SubResource("RectangleShape2D_i64jq")
+debug_color = Color(0.961248, 0, 0.511433, 0.42)
+
+[node name="Room2" type="Area2D" parent="."]
+position = Vector2(784, -125)
+script = ExtResource("3_604k2")
+perfer_zoom = 1.0
+
+[node name="AREA" type="CollisionShape2D" parent="Room2"]
+position = Vector2(521, 101)
+shape = SubResource("RectangleShape2D_axgtc")
+debug_color = Color(0.961248, 0, 0.511433, 0.42)
+
+[node name="Room3" type="Area2D" parent="."]
+position = Vector2(1184, -124)
+script = ExtResource("3_604k2")
+perfer_zoom = 1.0
+
+[node name="AREA" type="CollisionShape2D" parent="Room3"]
+position = Vector2(921, -100)
+shape = SubResource("RectangleShape2D_hyqhj")
+debug_color = Color(0.961248, 0, 0.511433, 0.42)
+
+[connection signal="body_entered" from="Room" to="Room" method="_on_body_entered"]
+[connection signal="body_exited" from="Room" to="Room" method="_on_body_exited"]
+[connection signal="body_entered" from="Room2" to="Room2" method="_on_body_entered"]
+[connection signal="body_exited" from="Room2" to="Room2" method="_on_body_exited"]
+[connection signal="body_entered" from="Room3" to="Room3" method="_on_body_entered"]
+[connection signal="body_exited" from="Room3" to="Room3" method="_on_body_exited"]
