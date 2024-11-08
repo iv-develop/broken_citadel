@@ -6,14 +6,8 @@ extends Node
 
 var room_bound_rects : Array[Rect2] = []
 
-enum State {
-	Follow,   # follow node
-	RoomSlide # follow node, but in bounds
-}
 
-var current_state = State.Follow
-
-@export var perfer_zoom = 1.
+@export var perfer_zoom = 4.
 @export var override_zoom : float
 
 @export var follow_node : Node2D = null
