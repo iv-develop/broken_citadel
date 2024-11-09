@@ -19,9 +19,12 @@ func _on_flow_body_exited(body: Node2D) -> void:
 	if !body.is_in_group("Player"): return
 	tracking_player_body = null
 
+func reset():
+	$AnimationPlayer.play("RESET")
+	$CPUParticles2D.emitting = false
+	self.activated = false
 
-func _on_area_entered(area: Area2D) -> void:
-	if !area.is_in_group("Rapier"): return
+func activate():
 	self.activated = true
 	$CPUParticles2D.emitting = true
 	$AnimationPlayer.play("pop")

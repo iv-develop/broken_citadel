@@ -7,7 +7,7 @@ extends Node
 var room_bound_rects = []
 
 
-@export var perfer_zoom = 2.
+@export var perfer_zoom = 2
 @export var override_zoom : float
 
 @export var follow_node : Node2D = null

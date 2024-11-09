@@ -7,7 +7,7 @@ void fragment() {
 	if (dot(COLOR.rgb - vec3(1.), COLOR.rgb - vec3(1.)) < 0.01){
 		COLOR.rgb = texture(glitch, puv).rgb * 2.0;
 	} else {
-		COLOR.rgb *= 10.;
+		COLOR.rgb *= 2.;
 	}
 }
 
