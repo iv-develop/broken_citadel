@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://c6d8lxdh1kmfw"]
+[gd_scene load_steps=36 format=4 uid="uid://c6d8lxdh1kmfw"]
 
 [ext_resource type="Script" path="res://assets/scripts/character_body_2d.gd" id="1_ejoa7"]
 [ext_resource type="Script" path="res://assets/scripts/init.gd" id="1_ydkj6"]
@@ -9,30 +9,13 @@
 [ext_resource type="Texture2D" uid="uid://082r0mf5ovm0" path="res://assets/images/castle_background.png" id="4_hofr6"]
 [ext_resource type="Texture2D" uid="uid://cm7qdka2ilu2k" path="res://assets/images/bricks.png" id="5_bqry4"]
 [ext_resource type="Texture2D" uid="uid://cpu2cb7dequt0" path="res://assets/images/infested_ground.png" id="7_gok2u"]
-[ext_resource type="Shader" path="res://garbage/glitch_bg.gdshader" id="7_hbqdc"]
-[ext_resource type="Texture2D" uid="uid://ddhmwho6dyhp5" path="res://assets/images/glitch.png" id="7_iisvn"]
 [ext_resource type="Texture2D" uid="uid://yx6ca0ryh3ix" path="res://assets/raw/float.png" id="7_xkadl"]
 [ext_resource type="Shader" path="res://garbage/corruption.gdshader" id="11_hulv4"]
 [ext_resource type="Texture2D" uid="uid://bvdb6a3yngc7x" path="res://assets/raw/blob.png" id="12_1gcpn"]
-[ext_resource type="Script" path="res://assets/scripts/stream.gd" id="15_py2xx"]
-[ext_resource type="Texture2D" uid="uid://2yr1v084mid1" path="res://assets/images/flow_blob.png" id="16_tfruq"]
-[ext_resource type="Texture2D" uid="uid://duf5bxmi1hsed" path="res://assets/images/glitch_bat.png" id="17_oegbk"]
-[ext_resource type="Texture2D" uid="uid://buovs7lmol2xj" path="res://assets/images/watcher.png" id="18_0jfis"]
-[ext_resource type="Script" path="res://assets/scenes/watcher.gd" id="18_y84wa"]
-[ext_resource type="Material" uid="uid://c0c5g3885bjiu" path="res://garbage/glitchify_material.tres" id="19_ukixd"]
-[ext_resource type="Script" path="res://assets/scenes/glitch.gd" id="21_gj4vn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ukitq"]
 radius = 6.0
 height = 18.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8iwxr"]
-shader = ExtResource("11_hulv4")
-shader_parameter/range = 0.05
-shader_parameter/noiseQuality = 250.0
-shader_parameter/noiseIntensity = 0.004
-shader_parameter/offsetIntensity = 0.03
-shader_parameter/colorOffsetIntensity = 0.9
 
 [sub_resource type="Animation" id="Animation_ym126"]
 resource_name = "Fall"
@@ -175,30 +158,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:monitorable")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:monitoring")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_jc1kj"]
 resource_name = "Slash"
@@ -210,30 +169,6 @@ tracks/0/path = NodePath("Sprite:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:monitorable")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:monitoring")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
@@ -257,22 +192,6 @@ size = Vector2(200, 1200)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6k2du"]
 size = Vector2(1200, 1200)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_i3r18"]
-noise_type = 4
-frequency = 0.04
-fractal_type = 0
-
-[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_qg32q"]
-width = 128
-height = 128
-depth = 128
-seamless = true
-noise = SubResource("FastNoiseLite_i3r18")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o04t4"]
-shader = ExtResource("7_hbqdc")
-shader_parameter/NOISE = SubResource("NoiseTexture3D_qg32q")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_64q11"]
 texture = ExtResource("5_bqry4")
@@ -695,187 +614,6 @@ shader_parameter/noiseIntensity = 0.244
 shader_parameter/offsetIntensity = 0.03
 shader_parameter/colorOffsetIntensity = 1.3
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8apu"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l250n"]
-size = Vector2(20, 200)
-
-[sub_resource type="Animation" id="Animation_hogs0"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_2l1hc"]
-resource_name = "pop"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_34eta"]
-_data = {
-"RESET": SubResource("Animation_hogs0"),
-"pop": SubResource("Animation_2l1hc")
-}
-
-[sub_resource type="Environment" id="Environment_8dklj"]
-background_mode = 3
-tonemap_mode = 3
-glow_enabled = true
-glow_intensity = 2.81
-glow_strength = 0.81
-glow_bloom = 0.24
-glow_blend_mode = 0
-adjustment_enabled = true
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_a43k2"]
-
-[sub_resource type="Animation" id="Animation_j53dc"]
-resource_name = "Attack"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [4]
-}
-
-[sub_resource type="Animation" id="Animation_k6ihy"]
-resource_name = "Prepare"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_w6vuq"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tyr6d"]
-_data = {
-"Attack": SubResource("Animation_j53dc"),
-"Prepare": SubResource("Animation_k6ihy"),
-"RESET": SubResource("Animation_w6vuq")
-}
-
-[sub_resource type="Animation" id="Animation_08rfn"]
-resource_name = "Idle"
-length = 0.3
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 1, 2]
-}
-
-[sub_resource type="Animation" id="Animation_dtqyt"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [4]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_feb0v"]
-_data = {
-"Idle": SubResource("Animation_08rfn"),
-"RESET": SubResource("Animation_dtqyt")
-}
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_785hr"]
-radius = 120.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hsf35"]
-shader = ExtResource("11_hulv4")
-shader_parameter/range = 0.05
-shader_parameter/noiseQuality = 250.0
-shader_parameter/noiseIntensity = 0.0088
-shader_parameter/offsetIntensity = 0.03
-shader_parameter/colorOffsetIntensity = 1.3
-
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_uv5e1"]
-
 [node name="Game" type="Node2D"]
 
 [node name="DBG" type="CanvasLayer" parent="."]
@@ -907,14 +645,12 @@ collision_mask = 4
 shape = SubResource("CapsuleShape2D_ukitq")
 
 [node name="PlayerSprite" type="Sprite2D" parent="Player"]
-material = SubResource("ShaderMaterial_8iwxr")
 position = Vector2(1, 0)
 texture = ExtResource("3_l4cc1")
 hframes = 6
 vframes = 6
 
 [node name="State" type="Label" parent="Player"]
-visible = false
 offset_left = -18.0
 offset_top = -30.0
 offset_right = 22.0
@@ -927,9 +663,7 @@ libraries = {
 }
 next/StartRun = &"Run"
 
-[node name="Rapier" type="Area2D" parent="Player" groups=["Rapier"]]
-monitoring = false
-monitorable = false
+[node name="Rapier" type="Area2D" parent="Player"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Rapier"]
 position = Vector2(27, 0)
@@ -965,9 +699,7 @@ scale_amount_max = 1.2
 
 [node name="CAMERA" type="Camera2D" parent="CameraJoint"]
 
-[node name="GARBAGE" type="Node2D" parent="."]
-
-[node name="Room" type="Area2D" parent="GARBAGE"]
+[node name="Room" type="Area2D" parent="."]
 visible = false
 position = Vector2(0, -52)
 monitoring = false
@@ -975,177 +707,73 @@ monitorable = false
 script = ExtResource("3_604k2")
 perfer_zoom = 1.0
 
-[node name="AREA" type="CollisionShape2D" parent="GARBAGE/Room"]
+[node name="AREA" type="CollisionShape2D" parent="Room"]
 shape = SubResource("RectangleShape2D_i64jq")
 debug_color = Color(0.961248, 0, 0.511433, 0.42)
 
-[node name="Room2" type="Area2D" parent="GARBAGE"]
+[node name="Room2" type="Area2D" parent="."]
 visible = false
-position = Vector2(284, -28)
+position = Vector2(523, 88)
 script = ExtResource("3_604k2")
 perfer_zoom = 4.0
 
-[node name="AREA" type="CollisionShape2D" parent="GARBAGE/Room2"]
+[node name="AREA" type="CollisionShape2D" parent="Room2"]
 shape = SubResource("RectangleShape2D_axgtc")
 debug_color = Color(0.961248, 0, 0.511433, 0.42)
 
-[node name="Room3" type="Area2D" parent="GARBAGE"]
+[node name="Room3" type="Area2D" parent="."]
 visible = false
 position = Vector2(1072, 634)
 script = ExtResource("3_604k2")
 perfer_zoom = 4.0
 
-[node name="AREA" type="CollisionShape2D" parent="GARBAGE/Room3"]
+[node name="AREA" type="CollisionShape2D" parent="Room3"]
 position = Vector2(0, 164)
 shape = SubResource("RectangleShape2D_hyqhj")
 debug_color = Color(0.961248, 0, 0.511433, 0.42)
 
-[node name="Room4" type="Area2D" parent="GARBAGE"]
+[node name="Room4" type="Area2D" parent="."]
 visible = false
 position = Vector2(218, 634)
 script = ExtResource("3_604k2")
 perfer_zoom = 0.1
 
-[node name="AREA" type="CollisionShape2D" parent="GARBAGE/Room4"]
+[node name="AREA" type="CollisionShape2D" parent="Room4"]
 position = Vector2(49, 164)
 shape = SubResource("RectangleShape2D_6k2du")
 debug_color = Color(0.961248, 0, 0.511433, 0.42)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="GARBAGE"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="GARBAGE/CanvasLayer"]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
+visible = false
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="GARBAGE/CanvasLayer/ParallaxBackground"]
-motion_scale = Vector2(0.8, 0.8)
+[node name="ParallaxLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
 motion_mirroring = Vector2(800, 600)
 
-[node name="Sprite2D" type="Sprite2D" parent="GARBAGE/CanvasLayer/ParallaxBackground/ParallaxLayer"]
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
 texture = ExtResource("4_hofr6")
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="GARBAGE/CanvasLayer/ParallaxBackground"]
-motion_scale = Vector2(0.9, 0.9)
-motion_mirroring = Vector2(800, 600)
-
-[node name="Sprite2D" type="Sprite2D" parent="GARBAGE/CanvasLayer/ParallaxBackground/ParallaxLayer2"]
-material = SubResource("ShaderMaterial_o04t4")
-texture = ExtResource("7_iisvn")
-
-[node name="TileMap" type="TileMapLayer" parent="GARBAGE" groups=["RapierHeavy"]]
+[node name="TileMap" type="TileMapLayer" parent="." groups=["RapierHeavy"]]
 tile_map_data = PackedByteArray("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AABWAO3/AQABAAMAAABVAO3/AQABAAMAAABUAO3/AQABAAMAAABTAO3/AQABAAMAAABSAO3/AQABAAMAAABRAO3/AQABAAMAAABQAO3/AQABAAMAAABPAO3/AQABAAMAAABOAO3/AQABAAMAAABNAO3/AQABAAMAAABMAO3/AQABAAMAAABLAO3/AQAAAAAAAABfAOj/AQABAAMAAABeAOj/AQABAAMAAABdAOj/AQABAAMAAABcAOj/AQABAAMAAABbAOj/AQABAAMAAABaAOj/AQABAAMAAABZAOj/AQABAAMAAABYAOj/AQABAAMAAABXAOj/AQABAAMAAABWAOj/AQABAAMAAABVAOj/AQABAAMAAABUAOj/AQABAAMAAABTAOj/AQABAAMAAABSAOj/AQABAAMAAABRAOj/AQABAAMAAABQAOj/AQABAAMAAABPAOj/AQABAAMAAABOAOj/AQABAAMAAABNAOj/AQABAAMAAABMAOj/AQABAAMAAABLAOj/AQAAAAAAAABrAO3/AQABAAMAAABqAO3/AQABAAMAAABpAO3/AQABAAMAAABoAO3/AQABAAMAAABnAO3/AQABAAMAAABmAO3/AQABAAMAAABlAO3/AQABAAMAAABkAO3/AQABAAMAAABjAO3/AQABAAMAAABiAO3/AQABAAMAAABhAO3/AQABAAMAAABgAO3/AQABAAMAAABrAOj/AQACAAMAAABqAOj/AQABAAMAAABpAOj/AQABAAMAAABoAOj/AQABAAMAAABnAOj/AQABAAMAAABmAOj/AQABAAMAAABlAOj/AQABAAMAAABkAOj/AQABAAMAAABjAOj/AQABAAMAAABiAOj/AQABAAMAAABhAOj/AQABAAMAAABgAOj/AQABAAMAAABtAO3/AQACAAMAAABsAO3/AQABAAMAAABEAPj/AQADAAIAAABEAPf/AQADAAEAAABEAPb/AQADAAEAAABEAPX/AQADAAEAAABEAPT/AQADAAEAAABEAPP/AQADAAEAAABEAPL/AQADAAEAAABEAPH/AQADAAEAAABEAPD/AQADAAEAAABEAO//AQADAAEAAABEAO7/AQADAAEAAABLAPj/AQADAAIAAABLAPf/AQADAAEAAABLAPb/AQADAAEAAABLAPX/AQADAAEAAABLAPT/AQADAAEAAABLAPP/AQADAAEAAABLAPL/AQADAAEAAABLAPH/AQADAAEAAABLAPD/AQADAAEAAABLAO//AQADAAEAAABLAO7/AQADAAEAAABLAOr/AQACAAIAAABLAOn/AQADAAEAAABKAOr/AQABAAMAAABJAOr/AQABAAMAAABIAOr/AQABAAMAAABHAOr/AQABAAMAAABGAOr/AQABAAMAAABFAOr/AQABAAMAAABEAOr/AQABAAMAAABDAOr/AQAAAAIAAABDAOn/AQADAAEAAAAEAPz/AQACAAMAAAADAPz/AQABAAMAAAACAPz/AQAAAAMAAAA=")
 tile_set = SubResource("TileSet_w334f")
 
-[node name="FloatingMap" type="TileMapLayer" parent="GARBAGE"]
+[node name="FloatingMap" type="TileMapLayer" parent="."]
 material = SubResource("ShaderMaterial_161tl")
 tile_map_data = PackedByteArray("AAADAPr/BgACAAIAAAADAPn/BgACAAEAAAADAPj/BgACAAEAAAADAPf/BgACAAAAAAACAPr/BgABAAIAAAACAPn/BgABAAEAAAACAPj/BgABAAEAAAACAPf/BgABAAAAAAABAPr/BgABAAIAAAABAPn/BgABAAEAAAABAPj/BgABAAEAAAABAPf/BgABAAAAAAAAAPr/BgABAAIAAAAAAPn/BgABAAEAAAAAAPj/BgABAAEAAAAAAPf/BgABAAAAAAD///r/BgABAAIAAAD///n/BgABAAEAAAD///j/BgABAAEAAAD///f/BgABAAAAAAD+//r/BgABAAIAAAD+//n/BgABAAEAAAD+//j/BgABAAEAAAD+//f/BgABAAAAAAD9//r/BgAAAAIAAAD9//n/BgAAAAEAAAD9//j/BgAAAAEAAAD9//f/BgAAAAAAAAA=")
 tile_set = SubResource("TileSet_w334f")
 
-[node name="Sprite2D" type="Sprite2D" parent="GARBAGE"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 0.909804, 0.988235, 1)
 material = SubResource("ShaderMaterial_wa5pq")
 position = Vector2(-114, -66)
 texture = ExtResource("12_1gcpn")
 
-[node name="VStream" type="Area2D" parent="GARBAGE" groups=["Stream"]]
-position = Vector2(-113, 0)
-script = ExtResource("15_py2xx")
-
-[node name="Sprite2D" type="Sprite2D" parent="GARBAGE/VStream"]
-position = Vector2(0, -8)
-texture = ExtResource("16_tfruq")
-hframes = 2
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="GARBAGE/VStream"]
-rotation = -1.57079
-emitting = false
-amount = 16
-emission_shape = 3
-emission_rect_extents = Vector2(0, 20)
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 200.0
-initial_velocity_max = 200.0
-color = Color(1, 1, 1, 0.388235)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GARBAGE/VStream"]
-shape = SubResource("RectangleShape2D_v8apu")
-
-[node name="Flow" type="Area2D" parent="GARBAGE/VStream"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GARBAGE/VStream/Flow"]
-position = Vector2(0, -100)
-shape = SubResource("RectangleShape2D_l250n")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="GARBAGE/VStream"]
-libraries = {
-"": SubResource("AnimationLibrary_34eta")
-}
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_8dklj")
-camera_attributes = SubResource("CameraAttributesPractical_a43k2")
-
-[node name="Watcher" type="Node2D" parent="."]
-visible = false
-position = Vector2(144, -61)
-script = ExtResource("18_y84wa")
-
-[node name="Timer" type="Timer" parent="Watcher"]
-
-[node name="Node2D" type="Node2D" parent="Watcher"]
-position = Vector2(0, 6)
-
-[node name="Sprite" type="Sprite2D" parent="Watcher"]
-material = ExtResource("19_ukixd")
-rotation = 0.000110021
-texture = ExtResource("18_0jfis")
-hframes = 5
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Watcher"]
-libraries = {
-"": SubResource("AnimationLibrary_tyr6d")
-}
-
-[node name="Bat" type="Node2D" parent="."]
-position = Vector2(-40, -27)
-
-[node name="Sprite2D" type="Sprite2D" parent="Bat"]
-texture = ExtResource("17_oegbk")
-hframes = 5
-frame = 4
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Bat"]
-libraries = {
-"": SubResource("AnimationLibrary_feb0v")
-}
-
-[node name="Sense" type="Area2D" parent="Bat"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bat/Sense"]
-visible = false
-shape = SubResource("CircleShape2D_785hr")
-
-[node name="Glitch" type="Node2D" parent="."]
-position = Vector2(-411, -144)
-script = ExtResource("21_gj4vn")
-
-[node name="Polygon2D" type="Polygon2D" parent="Glitch"]
-material = SubResource("ShaderMaterial_hsf35")
-texture = ExtResource("7_iisvn")
-polygon = PackedVector2Array(62, 29, 114, 39, 138, 54, 218, 125, 268, 192, 300, 276, 196, 285, 103, 255, 24, 219, 17, 102, 14, 55)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Glitch"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Glitch/StaticBody2D"]
-shape = SubResource("ConvexPolygonShape2D_uv5e1")
-
-[connection signal="body_entered" from="GARBAGE/Room" to="GARBAGE/Room" method="_on_body_entered"]
-[connection signal="body_exited" from="GARBAGE/Room" to="GARBAGE/Room" method="_on_body_exited"]
-[connection signal="body_entered" from="GARBAGE/Room2" to="GARBAGE/Room2" method="_on_body_entered"]
-[connection signal="body_exited" from="GARBAGE/Room2" to="GARBAGE/Room2" method="_on_body_exited"]
-[connection signal="body_entered" from="GARBAGE/Room3" to="GARBAGE/Room3" method="_on_body_entered"]
-[connection signal="body_exited" from="GARBAGE/Room3" to="GARBAGE/Room3" method="_on_body_exited"]
-[connection signal="body_entered" from="GARBAGE/Room4" to="GARBAGE/Room4" method="_on_body_entered"]
-[connection signal="body_exited" from="GARBAGE/Room4" to="GARBAGE/Room4" method="_on_body_exited"]
-[connection signal="area_entered" from="GARBAGE/VStream" to="GARBAGE/VStream" method="_on_area_entered"]
-[connection signal="body_entered" from="GARBAGE/VStream/Flow" to="GARBAGE/VStream" method="_on_flow_body_entered"]
-[connection signal="body_exited" from="GARBAGE/VStream/Flow" to="GARBAGE/VStream" method="_on_flow_body_exited"]
+[connection signal="body_entered" from="Room" to="Room" method="_on_body_entered"]
+[connection signal="body_exited" from="Room" to="Room" method="_on_body_exited"]
+[connection signal="body_entered" from="Room2" to="Room2" method="_on_body_entered"]
+[connection signal="body_exited" from="Room2" to="Room2" method="_on_body_exited"]
+[connection signal="body_entered" from="Room3" to="Room3" method="_on_body_entered"]
+[connection signal="body_exited" from="Room3" to="Room3" method="_on_body_exited"]
+[connection signal="body_entered" from="Room4" to="Room4" method="_on_body_entered"]
+[connection signal="body_exited" from="Room4" to="Room4" method="_on_body_exited"]

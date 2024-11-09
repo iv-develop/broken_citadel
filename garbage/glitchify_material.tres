@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c0c5g3885bjiu"]
+
+[ext_resource type="Shader" path="res://garbage/glitchify.gdshader" id="1_gwkpc"]
+[ext_resource type="Texture2D" uid="uid://ddhmwho6dyhp5" path="res://assets/images/glitch.png" id="2_2ccxi"]
+
+[resource]
+shader = ExtResource("1_gwkpc")
+shader_parameter/glitch = ExtResource("2_2ccxi")

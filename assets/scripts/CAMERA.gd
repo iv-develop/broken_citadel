@@ -4,10 +4,10 @@ extends Node
 
 @export var follow_speed : float = 5.
 
-var room_bound_rects : Array[Rect2] = []
+var room_bound_rects = []
 
 
-@export var perfer_zoom = 4.
+@export var perfer_zoom = 2.
 @export var override_zoom : float
 
 @export var follow_node : Node2D = null
@@ -27,6 +27,7 @@ func shake(amp: float, strength: float =1, time: float =1) -> void:
 	shake_time_since = 0
 
 func update(delta: float) -> void:
+	get_parent().get_node("Game/DBG/Label").text = str(room_bound_rects)
 	if shake_time <= 0: #end shake
 		shake_time = 0
 		shake_vec = Vector2.ZERO
@@ -40,16 +41,25 @@ func update(delta: float) -> void:
 		else:
 			shake_time_since -= delta
 	var target_zoom
+	
 	if override_zoom: target_zoom = override_zoom
+	elif len(room_bound_rects) != 0: target_zoom = room_bound_rects[len(room_bound_rects)-1][0]
 	else: target_zoom = perfer_zoom
-	CAMERA_NODE.zoom = lerp(CAMERA_NODE.zoom, Vector2(target_zoom, target_zoom), delta * follow_speed * 0.5)
+	if follow_speed == 0:
+		CAMERA_NODE.zoom = Vector2(target_zoom, target_zoom)
+	else:
+		CAMERA_NODE.zoom = lerp(CAMERA_NODE.zoom, Vector2(target_zoom, target_zoom), delta * follow_speed * 0.5)
 	var world_screen_size = CAMERA_NODE.get_viewport_rect().size / CAMERA_NODE.zoom * 0.5
 	if follow_node:
 		if len(room_bound_rects) == 0:
-				CAMERA_NODE.global_position = lerp(CAMERA_NODE.global_position, follow_node.global_position, delta * follow_speed) + shake_vec
+				if follow_speed == 0:
+					CAMERA_NODE.global_position = follow_node.global_position
+				else:
+					CAMERA_NODE.global_position = lerp(CAMERA_NODE.global_position, follow_node.global_position, delta * follow_speed) + shake_vec
 		else:
-			var room_bonds_left_up = self.room_bound_rects[len(self.room_bound_rects) - 1].position;
-			var room_bonds_right_bottom = self.room_bound_rects[len(self.room_bound_rects) - 1].size;
+			var room_bound_rect = self.room_bound_rects[len(self.room_bound_rects) - 1][1]
+			var room_bonds_left_up = room_bound_rect.position;
+			var room_bonds_right_bottom = room_bound_rect.size;
 			if !room_bonds_left_up and !room_bonds_right_bottom:
 				CAMERA_NODE.global_position = lerp(CAMERA_NODE.global_position, follow_node.global_position, delta * follow_speed) + shake_vec
 			else:
@@ -68,4 +78,7 @@ func update(delta: float) -> void:
 					target_position.x = center.x
 				if (world_screen_size.y) * 2. > size.y:
 					target_position.y = center.y
-				CAMERA_NODE.global_position = lerp(CAMERA_NODE.global_position, target_position, delta * follow_speed)  + shake_vec
+				if follow_speed == 0:
+					CAMERA_NODE.global_position = target_position
+				else:
+					CAMERA_NODE.global_position = lerp(CAMERA_NODE.global_position, target_position, delta * follow_speed)  + shake_vec

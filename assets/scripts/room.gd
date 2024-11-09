@@ -9,10 +9,10 @@ func _ready() -> void:
 	rect = Rect2(pos - size * 0.5, pos + size * 0.5)
 func _on_body_entered(body):
 	if !body.is_in_group("Player"): return
-	CAMERA.override_zoom = perfer_zoom
-	CAMERA.room_bound_rects.append(rect)
+	#CAMERA.override_zoom = perfer_zoom
+	CAMERA.room_bound_rects.append([perfer_zoom, rect])
 func _on_body_exited(body):
 	if !body.is_in_group("Player"): return
-	CAMERA.override_zoom = 0.
-	CAMERA.room_bound_rects.erase(rect)
+	#CAMERA.override_zoom = 0.
+	CAMERA.room_bound_rects.erase([perfer_zoom, rect])
 	

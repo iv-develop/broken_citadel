@@ -4,6 +4,4 @@ func _ready() -> void:
 	pass
 	
 func _process(d: float) -> void:
-	#print(get_parent().get_node("Game"))
-	pass
-	
+	get_parent().get_node("Game/DBG/Label").text = str(Engine.get_frames_per_second())
