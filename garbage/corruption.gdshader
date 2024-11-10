@@ -1,11 +1,15 @@
 shader_type canvas_item;
-
+render_mode blend_mix;
 uniform float range : hint_range(0.0, 0.1, 0.005)= 0.05;
 uniform float noiseQuality : hint_range(0.0, 300.0, 0.1)= 250.0;
 uniform float noiseIntensity : hint_range(-0.6, 0.6, 0.0010)= 0.004;
 uniform float offsetIntensity : hint_range(-0.1, 0.1, 0.001) = 0.03;
 uniform float colorOffsetIntensity : hint_range(0.0, 5.0, 0.001) = 0.9;
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture;
+varying vec4 modulate;
+
+void vertex(){
+	modulate = COLOR;
+}
 float rand(vec2 co)
 {
     return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
@@ -36,7 +40,7 @@ void fragment()
 	float ga = texture(TEXTURE, uv + offsetG).a;
 	float b = texture(TEXTURE, uv).b;
 	vec4 tex = vec4(r, g, b, 1.0);
-	COLOR.rgb = tex.rgb;
+	COLOR.rgb = tex.rgb * modulate.rgb;
 	if (COLOR.a  == 0.) {
 		COLOR.a = ga + ra;
 	}

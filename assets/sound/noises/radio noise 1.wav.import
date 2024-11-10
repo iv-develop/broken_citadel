@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bed2y2lwgjs7i"
+path="res://.godot/imported/radio noise 1.wav-b0ebf3f7ad7d89450c3ae94ebca0e6e0.sample"
+
+[deps]
+
+source_file="res://assets/sound/noises/radio noise 1.wav"
+dest_files=["res://.godot/imported/radio noise 1.wav-b0ebf3f7ad7d89450c3ae94ebca0e6e0.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

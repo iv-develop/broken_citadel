@@ -16,19 +16,14 @@ func reset():
 func _on_body_entered(player: Node2D) -> void:
 	if picked: return
 	if !player.is_in_group("Player"): return
+	$Picked.play(0)
 	match powerup_id:
-		0:
-			player.has_sword = true
-		1:
-			player.speed = player.BOOTS_SPEED
-		2:
-			player.jump_boots = true
-		3:
-			player.chromo_blade = true
-		4:
-			player.control_space = true
-		5:
-			player.hardened_blade = true
+		0: player.has_sword = true
+		1: player.speed = player.BOOTS_SPEED
+		2: player.jump_boots = true
+		3: player.chromo_blade = true
+		4: player.control_space = true
+		5: player.hardened_blade = true
 	particles.emitting = false
 	picked = true
 	particles.hide()

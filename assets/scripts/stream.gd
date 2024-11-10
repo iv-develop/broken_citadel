@@ -26,5 +26,7 @@ func reset():
 
 func activate():
 	self.activated = true
+	$String.pitch_scale = randf_range(0.7, 1.4)
+	$String.play(0)
 	$CPUParticles2D.emitting = true
 	$AnimationPlayer.play("pop")

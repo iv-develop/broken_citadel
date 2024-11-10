@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://n8fbx8cgsq0x"]
+
+[ext_resource type="Script" path="res://assets/scripts/pick_up.gd" id="1_b6eo1"]
+[ext_resource type="Texture2D" uid="uid://dolp38fjnosbm" path="res://assets/images/powerups.png" id="2_btcjq"]
+[ext_resource type="AudioStream" uid="uid://n26jdjce3gc2" path="res://assets/sound/picked.wav" id="3_khdvy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1boj1"]
+radius = 13.0384
+
+[sub_resource type="Gradient" id="Gradient_jaqk4"]
+offsets = PackedFloat32Array(0, 0.216036, 0.790646, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.867551, 0.00162124, 0.989689, 0.726761, 0.905882, 0.905882, 0.905882, 0, 1, 1, 1, 0)
+
+[node name="PickUp" type="Area2D" groups=["PickUp", "Resetable"]]
+script = ExtResource("1_b6eo1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1boj1")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 32
+lifetime = 0.8
+emission_shape = 1
+emission_sphere_radius = 20.0
+direction = Vector2(0, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+radial_accel_min = -30.0
+radial_accel_max = -30.0
+angle_max = 90.0
+scale_amount_min = 0.5
+scale_amount_max = 1.2
+color_ramp = SubResource("Gradient_jaqk4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_btcjq")
+hframes = 6
+
+[node name="Picked" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_khdvy")
+volume_db = -20.175
+pitch_scale = 0.8
+bus = &"FX"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
