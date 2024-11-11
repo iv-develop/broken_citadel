@@ -37,6 +37,8 @@ PickUp=""
 Despawnable=""
 Resetable=""
 Damagable=""
+Projectile=""
+DoubleDamage=""
 
 [input]
 
@@ -77,6 +79,7 @@ Reset={
 2d_physics/layer_3="Floating"
 2d_physics/layer_4="Bounce"
 2d_physics/layer_5="PlayerHurt"
+2d_physics/layer_6="EnemyHurt"
 
 [physics]
 

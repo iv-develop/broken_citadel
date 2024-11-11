@@ -1,0 +1,31 @@
+[gd_scene load_steps=8 format=3 uid="uid://c32mom1y4sx3c"]
+
+[ext_resource type="Script" path="res://assets/scenes/bullet.gd" id="1_georp"]
+[ext_resource type="Texture2D" uid="uid://cdgodtursu1ge" path="res://assets/images/ball_projectile/ball4.png" id="2_hqlc8"]
+[ext_resource type="Texture2D" uid="uid://bjwy3ghk0tmea" path="res://assets/images/ball_projectile/ball3.png" id="3_6lp13"]
+[ext_resource type="Texture2D" uid="uid://cw25yejnowj63" path="res://assets/images/ball_projectile/ball2.png" id="4_h7ncq"]
+[ext_resource type="Texture2D" uid="uid://cqdql1cw0ml8t" path="res://assets/images/ball_projectile/ball1.png" id="5_5c1qf"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_ejsx1"]
+frames = 4
+speed_scale = 20.0
+frame_0/texture = ExtResource("2_hqlc8")
+frame_1/texture = ExtResource("3_6lp13")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("4_h7ncq")
+frame_2/duration = 3.0
+frame_3/texture = ExtResource("5_5c1qf")
+frame_3/duration = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0c6y"]
+size = Vector2(12, 12)
+
+[node name="BulletSingle" type="CharacterBody2D" groups=["Damagable", "Despawnable", "Projectile"]]
+collision_layer = 16
+script = ExtResource("1_georp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AnimatedTexture_ejsx1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_q0c6y")

@@ -7,11 +7,34 @@ extends Node
 var room_bound_rects = []
 
 
-@export var perfer_zoom = 2
+@export var perfer_zoom = 2.0
 @export var override_zoom : float
 
 @export var follow_node : Node2D = null
 @export var override_focus_node : Node2D = null
+
+func get_state():
+	return [
+		CAMERA_NODE,
+		follow_speed,
+		perfer_zoom,
+		override_zoom,
+		follow_node,
+		override_focus_node,
+		CAMERA_NODE.global_position,
+		CAMERA_NODE.zoom
+	]
+
+func set_state(data):
+	CAMERA_NODE = data[0]
+	follow_speed = data[1]
+	perfer_zoom = data[2]
+	override_zoom = data[3]
+	follow_node = data[4]
+	override_focus_node = data[5]
+	CAMERA_NODE.global_position = data[6]
+	CAMERA_NODE.zoom = data[7]
+
 
 
 var shake_time = 0
@@ -27,7 +50,6 @@ func shake(amp: float, strength: float =1, time: float =1) -> void:
 	shake_time_since = 0
 
 func update(delta: float) -> void:
-	get_parent().get_node("Game/DBG/Label").text = str(room_bound_rects)
 	if shake_time <= 0: #end shake
 		shake_time = 0
 		shake_vec = Vector2.ZERO

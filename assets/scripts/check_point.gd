@@ -18,3 +18,4 @@ func _on_body_entered(body: Node2D) -> void:
 			GAME.save_checkpoint()
 			$Checkpoint.pitch_scale = randf_range(0.6, 0.8)
 			$Checkpoint.play(0)
+	

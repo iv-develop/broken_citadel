@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvdb6a3yngc7x"
-path="res://.godot/imported/blob.png-d5ca03841424fcf8aed313dce9fa96ee.ctex"
+uid="uid://dvvdo5b5phhye"
+path="res://.godot/imported/double3.png-6e404eae39651250fb809219e6d17f38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/raw/blob.png"
-dest_files=["res://.godot/imported/blob.png-d5ca03841424fcf8aed313dce9fa96ee.ctex"]
+source_file="res://assets/images/double_projectile/double3.png"
+dest_files=["res://.godot/imported/double3.png-6e404eae39651250fb809219e6d17f38.ctex"]
 
 [params]
 

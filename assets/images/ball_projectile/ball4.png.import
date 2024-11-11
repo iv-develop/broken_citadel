@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://buovs7lmol2xj"
-path="res://.godot/imported/watcher.png-3f12f27e19aea227a426ccddebdeff89.ctex"
+uid="uid://cdgodtursu1ge"
+path="res://.godot/imported/ball4.png-17bd5db409b2b4d1c144c6f3b4daaa54.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/watcher.png"
-dest_files=["res://.godot/imported/watcher.png-3f12f27e19aea227a426ccddebdeff89.ctex"]
+source_file="res://assets/images/ball_projectile/ball4.png"
+dest_files=["res://.godot/imported/ball4.png-17bd5db409b2b4d1c144c6f3b4daaa54.ctex"]
 
 [params]
 

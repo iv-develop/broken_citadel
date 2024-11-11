@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://cko5j860daqe6"]
+
+[ext_resource type="Script" path="res://assets/scripts/star_globe.gd" id="1_qsmfb"]
+[ext_resource type="Texture2D" uid="uid://cjdi2xhk8b0lu" path="res://assets/images/star_in_globe.png" id="2_vw0c0"]
+
+[sub_resource type="Animation" id="Animation_2a57o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_gsfdo"]
+resource_name = "TakeDamage"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s2krs"]
+_data = {
+"RESET": SubResource("Animation_2a57o"),
+"TakeDamage": SubResource("Animation_gsfdo")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_627ge"]
+radius = 7.0
+
+[node name="StarGlobe" type="StaticBody2D" groups=["Damagable"]]
+position = Vector2(641, -51)
+collision_layer = 9
+collision_mask = 9
+script = ExtResource("1_qsmfb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_vw0c0")
+hframes = 2
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_s2krs")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_627ge")

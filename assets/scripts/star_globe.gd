@@ -9,5 +9,5 @@ func _process(delta: float) -> void:
 	pass
 
 
-func take_damage(_g_pos, _vel):
+func take_damage(_g_pos, _vel, _d):
 	$AnimationPlayer.play("TakeDamage")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://4yiets11yjks"]
+
+[ext_resource type="Script" path="res://assets/scripts/respawn.gd" id="1_vqfsn"]
+
+[node name="RespawnHook" type="Node2D" groups=["Resetable"]]
+script = ExtResource("1_vqfsn")

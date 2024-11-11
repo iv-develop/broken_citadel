@@ -1,0 +1,41 @@
+[gd_scene load_steps=11 format=3 uid="uid://cfpwc65y8hn4d"]
+
+[ext_resource type="Script" path="res://assets/scenes/bullet.gd" id="1_yrpln"]
+[ext_resource type="Texture2D" uid="uid://jk822igtggtx" path="res://assets/images/double_projectile/double1.png" id="2_1ngd2"]
+[ext_resource type="Texture2D" uid="uid://dlt0426fdmvs0" path="res://assets/images/double_projectile/double2.png" id="3_7g6ry"]
+[ext_resource type="Texture2D" uid="uid://dvvdo5b5phhye" path="res://assets/images/double_projectile/double3.png" id="4_5tstp"]
+[ext_resource type="Texture2D" uid="uid://b7oqpyf8y3bko" path="res://assets/images/double_projectile/double4.png" id="5_emas3"]
+[ext_resource type="Texture2D" uid="uid://ceiej1g1cixcb" path="res://assets/images/double_projectile/double5.png" id="6_iptsw"]
+[ext_resource type="Texture2D" uid="uid://o7d2upig0djj" path="res://assets/images/double_projectile/double6.png" id="7_v7qfq"]
+[ext_resource type="Texture2D" uid="uid://bjyv5uxsd2oko" path="res://assets/images/double_projectile/double7.png" id="8_fak3c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0c6y"]
+size = Vector2(12, 12)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_ig1q3"]
+frames = 7
+speed_scale = 1.5
+frame_0/texture = ExtResource("2_1ngd2")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("3_7g6ry")
+frame_1/duration = 0.1
+frame_2/texture = ExtResource("4_5tstp")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("5_emas3")
+frame_3/duration = 0.1
+frame_4/texture = ExtResource("6_iptsw")
+frame_4/duration = 0.1
+frame_5/texture = ExtResource("7_v7qfq")
+frame_5/duration = 0.1
+frame_6/texture = ExtResource("8_fak3c")
+frame_6/duration = 0.1
+
+[node name="DoubleBullet" type="CharacterBody2D" groups=["Damagable", "Despawnable", "Projectile"]]
+collision_layer = 16
+script = ExtResource("1_yrpln")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_q0c6y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AnimatedTexture_ig1q3")

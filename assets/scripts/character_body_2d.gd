@@ -53,7 +53,6 @@ func try_land():
 		$Audio/Land.pitch_scale = randf_range(1.4, 1.8) - clampf(prev_vel_y * 0.01, 0.0, 1.0)
 		$Audio/Land.play(0)
 		if abs(prev_vel_y) > 300:
-			print(prev_vel_y)
 			$FallParticles.amount = 8
 			if abs(prev_vel_y) > 400:
 				$FallParticles.amount = 16
@@ -67,6 +66,9 @@ func slide(delta):
 	move_and_slide()
 	CAMERA.update(delta)
 
+var sword_delay = 0.3
+var c_sword_delay = 0.0
+
 func _physics_process(delta: float) -> void:
 	var left = Input.is_action_pressed("Left")
 	var right = Input.is_action_pressed("Right")
@@ -76,39 +78,38 @@ func _physics_process(delta: float) -> void:
 	var direction := int(right) - int(left)
 	var omnidirection = Vector2(direction, int(down) - int(up)).normalized()
 	if has_sword:
+		var mouse_pos = get_global_mouse_position()
+		var dir = (mouse_pos - global_position).normalized()
 		if !$Rapier/RapierAnimations.is_playing():
-			var mouse_pos = get_global_mouse_position()
-			var dir = (mouse_pos - global_position).normalized()
 			$Rapier.rotation = atan2(dir.y, dir.x)
-		if attack:
+		c_sword_delay += delta
+		if c_sword_delay >= sword_delay and attack:
+			c_sword_delay = 0.0
 			$Rapier/RapierAnimations.play("Slash")
 			var bodies = $Rapier.get_overlapping_bodies()
 			var areas = $Rapier.get_overlapping_areas()
 			var bounce_bodies = $Rapier/RapierBounce.get_overlapping_bodies()
 			var any_collided = false
 			for area in areas:
+				if area.is_in_group("Damagable"):
+					area.take_damage(global_position, velocity, dir)
+					any_collided = true
 				if area.is_in_group("Stream") and chromo_blade:
 					area.activate()
 					any_collided = true
 			for body in bodies:
 				if body.is_in_group("Damagable"):
-					body.take_damage(global_position, velocity)
+					body.take_damage(global_position, velocity, dir)
 					any_collided = true
 				if body.is_in_group("RapierLight"):
-					var mouse_pos = get_global_mouse_position()
-					var dir = (mouse_pos - global_position).normalized()
 					velocity = JUMP_VELOCITY * 0.75 * dir
 					any_collided = true
 				if not is_on_floor():
 					if hardened_blade and body.is_in_group("RapierHeavy"):
-						var mouse_pos = get_global_mouse_position()
-						var dir = (mouse_pos - global_position).normalized()
 						velocity = JUMP_VELOCITY * 0.75 * dir
 						any_collided = true
 			for body in bounce_bodies:
 				if not is_on_floor():
-					var mouse_pos = get_global_mouse_position()
-					var dir = (mouse_pos - global_position).normalized()
 					velocity = JUMP_VELOCITY * 1.2 * dir
 					any_collided = true
 			if any_collided:
@@ -118,7 +119,7 @@ func _physics_process(delta: float) -> void:
 			else:
 				$Rapier/Audio/Swing.pitch_scale = randf_range(1.05, 1.4)
 				$Rapier/Audio/Swing.play(0)
-	if $NoGrav.has_overlapping_bodies():dddddddddddddddddd
+	if $NoGrav.has_overlapping_bodies():
 		if direction:
 			if direction < 0:
 				player_sprite.flip_h = true
@@ -199,29 +200,42 @@ func _physics_process(delta: float) -> void:
 	
 	slide(delta)
 	jump_buffer += delta
-
+func heal(amount):
+	hp += amount
+	hp = clamp(hp, 0, 6)
+	GAME.ui.set_health(hp)
+	update_sat()
 func take_damage(amount):
 	$Audio/Hurt.pitch_scale = randf_range(0.7, 1.4)
 	$Audio/Hurt.play()
 	if $HitAnimations.is_playing(): return
 	hp -= amount
-	$"../ENV".environment.adjustment_saturation = 0.2 + clamp(hp, 0, 6) * 0.8 / 6
+	update_sat()
 	if hp <= 0:
 		GAME.translate_to_checkpoint()
 		$HitAnimations.play("Death")
-		GAME.freeze_time(0.5)
+		GAME.freeze_time(1.0)
 	else:
 		$HitAnimations.play("Hit")
 		GAME.freeze_time(0.05)
 	GAME.ui.set_health(hp)
+func update_sat():
+	$"../ENV".environment.adjustment_saturation = 0.2 + clamp(hp, 0, 6) * 0.8 / 6
 func revive():
-	$"../ENV".environment.adjustment_saturation = 1
 	$HitAnimations.play("RESET")
 	$HitBox.monitoring = true
+	update_sat()
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
-	take_damage(1)
-
+	node_entered(area)
 
 func _on_hit_box_body_entered(body: Node2D) -> void:
-	take_damage(2)
+	node_entered(body)
+
+func node_entered(node: Node2D):
+	if node.is_in_group("DoubleDamage"):
+		take_damage(2)
+	else:
+		if node.is_in_group("Projectile"):
+			node.hit()
+		take_damage(1)

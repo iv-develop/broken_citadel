@@ -15,7 +15,6 @@ func checkpoint_transition_hook():
 			#if event.keycode == KEY_6: set_health(6)
 
 
-
 func set_health(amount):
 	for node in get_node("HealthContainer").get_children():
 		var i = node.name.to_int() + 1

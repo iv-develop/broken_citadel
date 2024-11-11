@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=3 uid="uid://bjn0olub8m1ip"]
+
+[ext_resource type="Script" path="res://assets/scripts/saw.gd" id="1_5nimj"]
+[ext_resource type="Texture2D" uid="uid://cy484f3kijhhx" path="res://assets/images/saw/saw1.png" id="2_os8ur"]
+[ext_resource type="Texture2D" uid="uid://b2a2imuet33c1" path="res://assets/images/saw/saw2.png" id="3_m7ta1"]
+[ext_resource type="Texture2D" uid="uid://63jo60mpbd86" path="res://assets/images/saw/saw3.png" id="4_0merq"]
+[ext_resource type="Texture2D" uid="uid://bdbyc4fc3kixg" path="res://assets/images/saw/saw4.png" id="5_js6ig"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5biaf"]
+size = Vector2(12, 12)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_ttito"]
+frames = 4
+speed_scale = 2.0
+frame_0/texture = ExtResource("2_os8ur")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("3_m7ta1")
+frame_1/duration = 0.1
+frame_2/texture = ExtResource("4_0merq")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("5_js6ig")
+frame_3/duration = 0.1
+
+[node name="Saw" type="CharacterBody2D" groups=["Damagable", "RapierLight"]]
+collision_layer = 16
+script = ExtResource("1_5nimj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5biaf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AnimatedTexture_ttito")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://o0dywo8xxadq"]
+
+[ext_resource type="Script" path="res://assets/scripts/room.gd" id="1_navxc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i64jq"]
+size = Vector2(740, 380)
+
+[node name="Room" type="Area2D"]
+visible = false
+position = Vector2(0, -52)
+monitoring = false
+monitorable = false
+script = ExtResource("1_navxc")
+perfer_zoom = 1.0
+
+[node name="AREA" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_i64jq")
+debug_color = Color(0.961248, 0, 0.511433, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

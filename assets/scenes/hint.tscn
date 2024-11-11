@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8t6npb54iuj8"]
+
+[ext_resource type="Script" path="res://assets/scripts/hint.gd" id="1_rs2tq"]
+[ext_resource type="FontFile" uid="uid://bqg14ql3ri1u3" path="res://garbage/fusion-pixel-10px-proportional-latin.ttf" id="2_exawr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ot142"]
+size = Vector2(60, 60)
+
+[node name="Hint" type="Area2D" groups=["Damagable", "Resetable"]]
+position = Vector2(624, -72)
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_rs2tq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ot142")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="LabelCopy" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -184.5
+offset_top = -103.0
+offset_right = 184.5
+offset_bottom = 103.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_exawr")
+theme_override_font_sizes/font_size = 10
+text = "A/D - ходить
+Пробел - прыжок
+Это же меч!
+Используйте мышь для прицеливания
+ЛКМ - Удар
+С помощью меча можно отскакивать и отбивать некоторые опасные объекты
+Чек-поинт! Для возвращения сюда используйте L, что бы это не значило
+Гравитация здесь больше не властна!
+Попробуйте ударить ЭТО ->
+Да это же ботинки прыжка в воздухе!
+WASD - Передвигаться в безгравитационном пространстве
+"
