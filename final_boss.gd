@@ -27,8 +27,7 @@ func _process(delta: float) -> void:
 			$Boss/Side3/Cannon
 		]:
 			if !c.visible: continue
-			var dir = (c.global_position - GAME.player.global_position).normalized()
-			c.rotation = atan2(dir.y, dir.x)
+			var dir = Vector2(1.0, 0.0).rotated(randf() * 2 * PI)
 			var n = [
 				GAME.star_bullet,
 				GAME.bullet,
@@ -40,6 +39,7 @@ func _process(delta: float) -> void:
 				b.add_to_group("Projectile")
 				b.add_to_group("Despawnable")
 				b.velocity = dir * 175
+				b.vel = dir * 175
 				get_parent().add_child(b)
 				b.global_position = c.global_position
 		t1 = 0
@@ -93,6 +93,8 @@ func _on_hit_body_entered(body: Node2D) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		if !battle_began:
+			$RespawnHook.emitting = true
+			print("final battle")
 			$EvilLaugh.play()
 			battle_began = true
 			GAME.set_music("Boss2")

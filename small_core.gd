@@ -17,17 +17,20 @@ func despawn(lt=5):
 	for i in range(2):
 		var n = GAME.star_bullet.duplicate()
 		n.lifetime = lt
-		n.vel = Vector2(150, 150).rotated(self.rotation + PI / 2 * i)
+		n.vel = Vector2(150, 150).rotated(randf() * PI * 2)
 		get_parent().add_child(n)
 		n.global_position = global_position
 	queue_free()
 func _physics_process(delta: float) -> void:
+	if !GAME.game_root.get_node("Final").battle_began:
+		return
 	if frozen: return
 	else:
 		var p = GAME.player
 		if p:
-			rotate(delta * 2.0)
+			#rotate(delta * 2.0)
 			velocity = lerp(velocity, (p.global_position - global_position).normalized() * speed, delta)
 			move_and_slide()
+
 func smooth_despawn(t=1.0):
 	despawn(t)

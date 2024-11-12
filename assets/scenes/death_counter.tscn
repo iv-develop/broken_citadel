@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://death_counter.gd" id="1_x3pls"]
 
 [node name="DeathCounter" type="Node2D"]
+z_index = 1
+position = Vector2(-90, -3)
 script = ExtResource("1_x3pls")
 
 [node name="Label" type="Label" parent="."]

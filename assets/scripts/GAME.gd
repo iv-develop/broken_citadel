@@ -3,6 +3,8 @@ extends Node
 const IMMORTAL : Color = Color("ff4d00ff");
 
 var enable_opt = true
+
+
 var saved_pos = Vector2(0, 0)
 var saved_speed = 0
 var saved_hp = 0
@@ -42,7 +44,7 @@ func erase_data():
 		print("An error happened while loading data: ", error)
 		return
 
-const SAVE_VERSION = 1.0
+const SAVE_VERSION = 3
 func try_load_data():
 	var config_file := ConfigFile.new()
 	var error := config_file.load(save_path)
@@ -53,7 +55,7 @@ func try_load_data():
 		print("Empty data!")
 		return false
 	
-	var version = config_file.get_value("save", "version", 0.0)
+	var version = config_file.get_value("save", "version", 0)
 	if version != SAVE_VERSION:
 		print("Outdated data! Erasing!")
 		erase_data()
@@ -149,7 +151,6 @@ func save_checkpoint():
 	saved_hp = clamp(player.hp, 1, 6)
 	c_state = CAMERA.get_state()
 	save_data()
-
 func _ready() -> void:
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
 	player = get_tree().get_nodes_in_group("Player")[0]
@@ -169,7 +170,7 @@ func freeze_time(t):
 
 var settings_opened = false
 
-var music_transition_speed = 0.0
+var music_transition_speed = 1.0
 var bg_music = "MusicBG"
 var current_music = bg_music
 var musics = [

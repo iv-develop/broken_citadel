@@ -111,6 +111,7 @@ func _physics_process(delta: float) -> void:
 		10:
 			sequence_progression = 0
 			GAME.set_music("SECRET")
+			GAME.bg_music = "SECRET"
 	
 	
 	var left = Input.is_action_pressed("Left")

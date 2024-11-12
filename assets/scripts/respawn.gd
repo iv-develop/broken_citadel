@@ -11,13 +11,15 @@ func _ready() -> void:
 @export var emitting = true
 @export var respawn_time = 2.0
 var time_since_despawn = 0.0
+
 func _process(delta: float) -> void:
 	if !emitting: return
 	if as_spawner and clone:
 			time_since_despawn += delta
 			if time_since_despawn >= respawn_time:
-				var n = clone.duplicate()
-				add_child(n)
+				if (self.global_position - GAME.player.global_position).length_squared() < pow(1600, 2):
+					var n = clone.duplicate()
+					add_child(n)
 				time_since_despawn = 0.0
 	else:
 		if clone and not is_instance_valid(instance):
