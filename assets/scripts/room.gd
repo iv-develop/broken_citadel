@@ -4,6 +4,7 @@ extends Area2D
 @onready var area = self.get_node("AREA")
 var rect : Rect2;
 func _ready() -> void:
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
 	var pos = area.global_position
 	var size = area.shape.size
 	rect = Rect2(pos - size * 0.5, pos + size * 0.5)
@@ -15,4 +16,3 @@ func _on_body_exited(body):
 	if !body.is_in_group("Player"): return
 	#CAMERA.override_zoom = 0.
 	CAMERA.room_bound_rects.erase([perfer_zoom, rect])
-	

@@ -8,7 +8,7 @@ data = PackedByteArray("UdhR2KLZotnz2vPaQ9xD3JTdlN3k3uTeR9VH1VK0UrQBqQGpUa5Rrquz
 format = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uc6pn"]
-size = Vector2(40, 40)
+size = Vector2(14, 30)
 
 [sub_resource type="Animation" id="Animation_lsiqd"]
 length = 0.001

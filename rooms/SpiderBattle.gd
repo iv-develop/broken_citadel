@@ -27,19 +27,20 @@ var time_for_attack = 0.0
 var waves_spawned = 0
 
 func try_spawn_paryable(dir, waves=4):
-	if randf() > 0.9 and waves_spawned > waves:
+	if randf() > 0.85 and waves_spawned > waves:
+		print("spawned")
 		var bullet = GAME.bullet.duplicate()
 		bullet.parryable = true
 		bullet.collision_mask = 1
 		bullet.collision_layer = 16 
 		bullet.lifetime = 4.0
 		bullet.vel = dir * -300.
-		bullet.global_position = $Spider/Head.global_position
 		$Bullets.add_child(bullet)
+		bullet.global_position = $Spider/Head.global_position
 var left = false
 func _process(delta: float) -> void:
-	if spider_hp <= 0:
-		$Glitch.position.y = move_toward($Glitch.position.y, 0, delta)
+	if !battle_started:
+		$Glitch.position.y = move_toward($Glitch.position.y, 0, delta *  800.0)
 		return
 	if !battle_started: return
 	$Glitch.position.y = move_toward($Glitch.position.y, -(3 - spider_hp) * 150, delta * 100.)
@@ -141,9 +142,14 @@ func _on_hit_body_entered(body: Node2D) -> void:
 			clear_field(0.4)
 			spider_hp -= 1
 			if spider_hp <= 0:
+				battle_started = false
 				$PickUp.show()
 				$PickUp.monitorable = true
 				$PickUp.monitoring = true
 				$Hint.show()
 				$Hint.monitorable = true
+				GAME.save_checkpoint()
+				GAME.saved_hp = clamp(GAME.saved_hp, 1, 6)
+				GAME.spider_defeated = true
+				GAME.saved_jump_boots = true
 			

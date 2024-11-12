@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 @export var speed = 50;
 @export var hardened = false
-var hp = 0
+var hp = 3
 func _ready() -> void:
 	if hardened:
 		$Roller.modulate = GAME.IMMORTAL

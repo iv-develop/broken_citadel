@@ -14,7 +14,7 @@ frame_0/texture = ExtResource("2_bnqyw")
 frame_1/texture = ExtResource("3_syxlk")
 frame_1/duration = 1.0
 
-[node name="Roller" type="CharacterBody2D" groups=["Damagable", "RapierLight"]]
+[node name="Roller" type="CharacterBody2D" groups=["Damagable", "Despawnable", "RapierLight"]]
 collision_layer = 24
 script = ExtResource("1_pf82g")
 speed = 315

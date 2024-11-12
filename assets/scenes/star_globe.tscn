@@ -44,7 +44,6 @@ _data = {
 radius = 7.0
 
 [node name="StarGlobe" type="StaticBody2D" groups=["Damagable"]]
-position = Vector2(641, -51)
 collision_layer = 9
 collision_mask = 9
 script = ExtResource("1_qsmfb")

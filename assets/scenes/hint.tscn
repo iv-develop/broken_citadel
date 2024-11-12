@@ -7,7 +7,6 @@
 size = Vector2(60, 60)
 
 [node name="Hint" type="Area2D" groups=["Damagable", "Resetable"]]
-position = Vector2(624, -72)
 collision_mask = 0
 monitoring = false
 script = ExtResource("1_rs2tq")

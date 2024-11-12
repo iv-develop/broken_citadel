@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfuvbqnn8xjht"]
+
+[ext_resource type="Script" path="res://assets/scripts/DEATH.gd" id="1_2xrrn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_434ou"]
+
+[node name="DEATH" type="Area2D"]
+script = ExtResource("1_2xrrn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_434ou")
+debug_color = Color(1, 0, 0.0166664, 0.678431)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

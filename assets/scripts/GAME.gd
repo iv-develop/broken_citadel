@@ -22,11 +22,19 @@ var c_state = []
 var player = null
 var ui = null
 
+@onready var game_root = get_parent().get_node("Game")
+
 var hp = preload("res://assets/scenes/hp.tscn").instantiate()
 
 var double_bullet = preload("res://assets/scenes/double_bullet.tscn").instantiate()
 var bullet = preload("res://assets/scenes/bullet_single.tscn").instantiate()
 var star_bullet = preload("res://assets/scenes/bouncing_star.tscn").instantiate()
+
+var last_checkpoint_pos = Vector2(0, 0)
+
+func begin_play_music():
+	pass
+
 
 func try_spawn_hp(pos: Vector2, p: float = 0.5):
 	if randf() >= p:
@@ -39,10 +47,10 @@ func try_spawn_hp(pos: Vector2, p: float = 0.5):
 func checkpoint_transition_hook():
 	back_to_checkpoint()
 
-func translate_to_checkpoint():
+func translate_to_checkpoint(t=0.5):
 	ui.get_node("Respawn").play()
 	ui.get_node("AnimationPlayer").play("InOut")
-
+	GAME.freeze_time(t)
 func back_to_checkpoint():
 	player.global_position = saved_pos
 	player.speed = saved_speed
@@ -70,6 +78,7 @@ func back_to_checkpoint():
 	
 	
 func save_checkpoint():
+	last_checkpoint_pos = player.global_position
 	saved_pos = player.global_position
 	saved_speed = player.speed
 	saved_has_sword = player.has_sword
@@ -77,13 +86,12 @@ func save_checkpoint():
 	saved_chromo_blade = player.chromo_blade
 	saved_control_space = player.control_space
 	saved_hardened_blade = player.hardened_blade
-	saved_cam_rects = CAMERA.room_bound_rects
-	saved_cam_zoom = CAMERA.perfer_zoom
-	saved_cam_ov_zoom = CAMERA.override_zoom
-	saved_cam_pos = CAMERA.CAMERA_NODE.global_position
-	saved_cam_node_zoom = CAMERA.CAMERA_NODE.zoom
 	saved_hp = player.hp
-	
+	#saved_cam_rects = CAMERA.room_bound_rects
+	#saved_cam_zoom = CAMERA.perfer_zoom
+	#saved_cam_ov_zoom = CAMERA.override_zoom
+	#saved_cam_pos = CAMERA.CAMERA_NODE.global_position
+	#saved_cam_node_zoom = CAMERA.CAMERA_NODE.zoom
 	c_state = CAMERA.get_state()
 	
 
@@ -94,11 +102,7 @@ func _ready() -> void:
 	saved_speed = player.speed
 	saved_pos = player.global_position
 	saved_hp = player.hp
-	
-	saved_cam_rects = CAMERA.room_bound_rects
-	saved_cam_zoom = CAMERA.perfer_zoom
-	saved_cam_ov_zoom = CAMERA.override_zoom
-	
+
 
 func freeze_time(t):
 	get_tree().paused = true
@@ -109,6 +113,8 @@ var d = 0.0
 var frame = 0
 var frames = [load("res://assets/images/cursor1.png"), load("res://assets/images/cursor2.png"), load("res://assets/images/cursor3.png")]
 func _process(delta: float) -> void:
+	if Input.is_key_pressed(KEY_CTRL) and Input.is_key_pressed(KEY_SHIFT) and Input.is_key_pressed(KEY_ALT) and Input.is_action_just_pressed("Reset"):
+		print("Save deleted!")
 	d += delta
 	if d > 0.1:
 		d -= 0.1

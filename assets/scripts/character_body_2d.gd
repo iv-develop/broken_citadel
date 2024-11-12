@@ -19,7 +19,7 @@ enum PlayerState {
 var state = PlayerState.Idle
 
 var jump_buffer := 0.0
-const JB_max_time = 0.05
+const JB_max_time = 0.08
 var jumped = false
 
 var hp = 6
@@ -69,7 +69,30 @@ func slide(delta):
 var sword_delay = 0.3
 var c_sword_delay = 0.0
 
+var sequence_progression = 0
+var attack_buffer = 0.0
+var attack_buffer_max = 0.08
 func _physics_process(delta: float) -> void:
+	match sequence_progression:
+		0: if Input.is_action_just_pressed("ui_up"): sequence_progression += 1
+		1: if Input.is_action_just_pressed("ui_up"): sequence_progression += 1
+		2: if Input.is_action_just_pressed("ui_down"): sequence_progression += 1
+		3: if Input.is_action_just_pressed("ui_down"): sequence_progression += 1
+		4: if Input.is_action_just_pressed("ui_left"): sequence_progression += 1
+		5: if Input.is_action_just_pressed("ui_right"): sequence_progression += 1
+		6: if Input.is_action_just_pressed("ui_left"): sequence_progression += 1
+		7: if Input.is_action_just_pressed("ui_right"): sequence_progression += 1
+		8: if Input.is_action_just_pressed("B"): sequence_progression += 1
+		9: if Input.is_action_just_pressed("A"): sequence_progression += 1
+		10:
+			sequence_progression = 0
+			GAME.game_root.get_node("MUSIC/SECRET").play()
+	
+	if Input.is_action_pressed("B") and Input.is_key_pressed(KEY_SHIFT):
+		heal(6)
+	if Input.is_action_pressed("A") and Input.is_key_pressed(KEY_SHIFT):
+		GAME.save_checkpoint()
+	
 	var left = Input.is_action_pressed("Left")
 	var right = Input.is_action_pressed("Right")
 	var up = Input.is_action_pressed("Up")
@@ -77,13 +100,16 @@ func _physics_process(delta: float) -> void:
 	var attack = Input.is_action_just_pressed("Attack")
 	var direction := int(right) - int(left)
 	var omnidirection = Vector2(direction, int(down) - int(up)).normalized()
+	attack_buffer -= delta
 	if has_sword:
 		var mouse_pos = get_global_mouse_position()
 		var dir = (mouse_pos - global_position).normalized()
 		if !$Rapier/RapierAnimations.is_playing():
 			$Rapier.rotation = atan2(dir.y, dir.x)
 		c_sword_delay += delta
-		if c_sword_delay >= sword_delay and attack:
+		if c_sword_delay >= sword_delay and (attack or (attack_buffer > 0)):
+			if attack and !$Rapier/RapierAnimations.is_playing():
+				attack_buffer = attack_buffer_max
 			c_sword_delay = 0.0
 			$Rapier/RapierAnimations.play("Slash")
 			var bodies = $Rapier.get_overlapping_bodies()
@@ -214,7 +240,7 @@ func take_damage(amount):
 	if hp <= 0:
 		GAME.translate_to_checkpoint()
 		$HitAnimations.play("Death")
-		GAME.freeze_time(1.0)
+		
 	else:
 		$HitAnimations.play("Hit")
 		GAME.freeze_time(0.05)

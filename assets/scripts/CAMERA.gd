@@ -2,7 +2,7 @@ extends Node
 
 @onready var CAMERA_NODE : Camera2D = get_parent().get_node("Game/CameraJoint/CAMERA");
 
-@export var follow_speed : float = 5.
+@export var follow_speed : float = 0.
 
 var room_bound_rects = []
 
@@ -42,6 +42,12 @@ var shake_time_since = 0
 var shake_amp = 0
 var shake_vec = Vector2.ZERO
 var shake_strength = 0
+
+func _ready() -> void:
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
+	follow_node = GAME.game_root.get_node("Player")
+	update(0.1)
+	GAME.c_state = get_state()
 
 func shake(amp: float, strength: float =1, time: float =1) -> void:
 	shake_time = time

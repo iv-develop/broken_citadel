@@ -21,7 +21,7 @@ frame_2/duration = 0.1
 frame_3/texture = ExtResource("5_js6ig")
 frame_3/duration = 0.1
 
-[node name="Saw" type="CharacterBody2D" groups=["Damagable", "RapierLight"]]
+[node name="Saw" type="CharacterBody2D" groups=["Damagable", "Despawnable", "RapierLight"]]
 collision_layer = 16
 script = ExtResource("1_5nimj")
 

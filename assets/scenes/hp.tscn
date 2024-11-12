@@ -6,7 +6,6 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_x5yes"]
 
 [node name="HP" type="Area2D" groups=["Despawnable"]]
-position = Vector2(-104, -77)
 script = ExtResource("1_c0ne6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

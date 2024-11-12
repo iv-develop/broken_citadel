@@ -14,7 +14,7 @@ func _ready() -> void:
 	if hardened:
 		$Sprite2D.modulate = GAME.IMMORTAL
 
-@export var hp = 2
+@export var hp = 3
 @export var hardened = false
 @export var current_direction = Vector2(-150, 0)
 func _physics_process(delta: float) -> void:
