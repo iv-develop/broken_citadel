@@ -7,6 +7,7 @@ func _ready() -> void:
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
 	var pos = area.global_position
 	var size = area.shape.size
+	self.monitoring = true
 	rect = Rect2(pos - size * 0.5, pos + size * 0.5)
 func _on_body_entered(body):
 	if !body.is_in_group("Player"): return

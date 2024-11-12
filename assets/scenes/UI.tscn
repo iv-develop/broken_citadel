@@ -147,6 +147,7 @@ hframes = 3
 [node name="SETTINGS" type="ColorRect" parent="."]
 process_mode = 3
 visible = false
+z_index = 2
 material = SubResource("ShaderMaterial_3xsc4")
 anchors_preset = 15
 anchor_right = 1.0

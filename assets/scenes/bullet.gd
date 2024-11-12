@@ -18,7 +18,7 @@ func _ready() -> void:
 	await get_tree().create_timer(1).timeout
 	queue_free()
 
-@export var vel  = Vector2(-100, 0)
+@export var vel = Vector2(-100, 0)
 @export var parryable = true
 @export var lifetime = 5.0
 
@@ -40,12 +40,16 @@ func smooth_despawn(t=1.0):
 	queue_free()
 
 func take_damage(gp, _v, dir):
-	vel = vel.length() * dir
-	self.collision_layer = 16 + 32
+	if vel == Vector2(0.0, 0.0):
+		vel = dir * 100
+	else:
+		vel = clamp(vel.length(), 100, 1000) * dir
+	self.collision_layer = 16 + 32 + 128
 	can_damage_enemies = true
 
 func hit():
 	self.queue_free()
+
 
 func _physics_process(delta: float) -> void:
 	var res = move_and_collide(vel * delta)

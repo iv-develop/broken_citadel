@@ -9,7 +9,7 @@ var sword_bus_idx = AudioServer.get_bus_index("Sword")
 var player_music_bus_idx = AudioServer.get_bus_index("Player")
 var fx_music_bus_idx = AudioServer.get_bus_index("FX")
 var music_bus_idx = AudioServer.get_bus_index("Music")
-var enemies_bus_idx = AudioServer.get_bus_index("Утуьн")
+var enemies_bus_idx = AudioServer.get_bus_index("Enemy")
 
 func set_health(amount):
 	for node in get_node("HealthContainer").get_children():

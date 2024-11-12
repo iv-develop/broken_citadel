@@ -8,10 +8,11 @@ func _ready() -> void:
 		instance = n
 		clone = n.duplicate()
 		return
-
+@export var emitting = true
 @export var respawn_time = 2.0
 var time_since_despawn = 0.0
 func _process(delta: float) -> void:
+	if !emitting: return
 	if as_spawner and clone:
 			time_since_despawn += delta
 			if time_since_despawn >= respawn_time:

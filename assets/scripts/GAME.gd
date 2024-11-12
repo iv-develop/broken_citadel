@@ -13,6 +13,7 @@ var saved_control_space = false
 var saved_hardened_blade = false
 var spider_defeated = false
 var c_state = []
+var deaths = 0
 
 var player = null
 var ui = null
@@ -31,7 +32,6 @@ var last_checkpoint_pos = Vector2(0, 0)
 
 
 
-
 var save_path = "user://save_data.json"
 
 func erase_data():
@@ -42,6 +42,7 @@ func erase_data():
 		print("An error happened while loading data: ", error)
 		return
 
+const SAVE_VERSION = 1.0
 func try_load_data():
 	var config_file := ConfigFile.new()
 	var error := config_file.load(save_path)
@@ -51,6 +52,13 @@ func try_load_data():
 	if len(config_file.get_sections()) == 0:
 		print("Empty data!")
 		return false
+	
+	var version = config_file.get_value("save", "version", 0.0)
+	if version != SAVE_VERSION:
+		print("Outdated data! Erasing!")
+		erase_data()
+		return false
+	deaths = config_file.get_value("save", "deaths", 0)
 	enable_opt = config_file.get_value("save", "enable_opt", true)
 	saved_pos = config_file.get_value("save", "saved_pos", Vector2(0, 10))
 	saved_speed = config_file.get_value("save", "saved_speed", 100)
@@ -66,6 +74,8 @@ func try_load_data():
 
 func save_data():
 	var config_file := ConfigFile.new()
+	config_file.set_value("save", "version", SAVE_VERSION)
+	config_file.set_value("save", "deaths", deaths)
 	config_file.set_value("save", "enable_opt", enable_opt)
 	config_file.set_value("save", "saved_pos", saved_pos)
 	config_file.set_value("save", "saved_speed", saved_speed)
@@ -98,6 +108,8 @@ func translate_to_checkpoint(t=0.5):
 	ui.get_node("AnimationPlayer").play("InOut")
 	GAME.freeze_time(t)
 
+var death_counter = load("res://assets/scenes/death_counter.tscn").instantiate()
+
 func back_to_checkpoint(reset=true):
 	player.global_position = saved_pos
 	player.speed = saved_speed
@@ -110,7 +122,11 @@ func back_to_checkpoint(reset=true):
 	player.hp = saved_hp
 	ui.set_health(saved_hp)
 	player.revive()
-	set_music(bg_music, 0.5)
+	deaths += 1
+	var dc = death_counter.duplicate()
+	dc.c = deaths
+	game_root.add_child(dc)
+	dc.global_position = player.global_position
 	#CAMERA.CAMERA_NODE.global_position = saved_pos
 	if reset:
 		for despawnable in get_tree().get_nodes_in_group("Despawnable"):
@@ -118,8 +134,9 @@ func back_to_checkpoint(reset=true):
 		for resetable in get_tree().get_nodes_in_group("Resetable"):
 			resetable.reset()
 	CAMERA.set_state(c_state)
-	
-	
+	set_music(bg_music, 0.5)
+
+
 func save_checkpoint():
 	last_checkpoint_pos = player.global_position
 	saved_pos = player.global_position
@@ -129,7 +146,7 @@ func save_checkpoint():
 	saved_chromo_blade = player.chromo_blade
 	saved_control_space = player.control_space
 	saved_hardened_blade = player.hardened_blade
-	saved_hp = player.hp
+	saved_hp = clamp(player.hp, 1, 6)
 	c_state = CAMERA.get_state()
 	save_data()
 
@@ -142,6 +159,7 @@ func _ready() -> void:
 	saved_hp = player.hp
 	if try_load_data():
 		back_to_checkpoint(false)
+	
 	
 
 func freeze_time(t):
@@ -170,14 +188,22 @@ func set_music(n, transition_speed=1.0):
 	current_music = n
 	music_transition_speed = transition_speed
 
+var override_db = true
 
 func _process(delta: float) -> void:
+	if delta < 0.2: override_db = false
 	for m in musics:
 		var music_node : AudioStreamPlayer = game_root.get_node("MUSIC").get_node(m)
+		if override_db:
+			music_node.volume_db = -80.0
+			music_node.stop()
+			continue
+		var s = music_transition_speed
+		if s == 0: s = 10.0
 		if current_music == m:
-			music_node.volume_db = lerp(music_node.volume_db, -25.0, delta * music_transition_speed)
+			music_node.volume_db = lerp(music_node.volume_db, -25.0, delta * s)
 		else:
-			music_node.volume_db = lerp(music_node.volume_db, -80.0, delta * music_transition_speed)
+			music_node.volume_db = lerp(music_node.volume_db, -80.0, delta * s)
 		if music_node.volume_db < -75:
 			music_node.stop()
 		else:

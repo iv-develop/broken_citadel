@@ -1,11 +1,10 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c0c5g3885bjiu"]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c0c5g3885bjiu"]
 
-[ext_resource type="Shader" path="res://garbage/corruption.gdshader" id="1_o7ikd"]
+[ext_resource type="Shader" path="res://garbage/glitchify.gdshader" id="1_cw8qk"]
+[ext_resource type="Texture2D" uid="uid://ddhmwho6dyhp5" path="res://assets/images/glitch.png" id="2_tvfpa"]
 
 [resource]
-shader = ExtResource("1_o7ikd")
-shader_parameter/range = 0.05
-shader_parameter/noiseQuality = 250.0
-shader_parameter/noiseIntensity = 0.004
-shader_parameter/offsetIntensity = 0.03
-shader_parameter/colorOffsetIntensity = 0.9
+shader = ExtResource("1_cw8qk")
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/global_uv = false
+shader_parameter/glitch = ExtResource("2_tvfpa")

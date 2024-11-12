@@ -85,6 +85,7 @@ func other_pressed():
 	for action in actions:
 		if Input.is_action_just_pressed(action): return true
 	return false
+
 func _physics_process(delta: float) -> void:
 	match sequence_progression:
 		0: if Input.is_action_just_pressed("ui_up"): sequence_progression += 1
@@ -111,10 +112,6 @@ func _physics_process(delta: float) -> void:
 			sequence_progression = 0
 			GAME.set_music("SECRET")
 	
-	if Input.is_action_pressed("B") and Input.is_key_pressed(KEY_SHIFT):
-		heal(6)
-	if Input.is_action_pressed("A") and Input.is_key_pressed(KEY_SHIFT):
-		GAME.save_checkpoint()
 	
 	var left = Input.is_action_pressed("Left")
 	var right = Input.is_action_pressed("Right")
@@ -253,6 +250,7 @@ func heal(amount):
 	hp += amount
 	hp = clamp(hp, 0, 6)
 	GAME.ui.set_health(hp)
+	$Audio/HpUp.play()
 	update_sat()
 func take_damage(amount):
 	$Audio/Hurt.pitch_scale = randf_range(0.7, 1.4)
@@ -260,6 +258,8 @@ func take_damage(amount):
 	if $HitAnimations.is_playing(): return
 	hp -= amount
 	update_sat()
+	if hp <= 2:
+		$Audio/LowHp.play()
 	if hp <= 0:
 		GAME.translate_to_checkpoint()
 		$HitAnimations.play("Death")
