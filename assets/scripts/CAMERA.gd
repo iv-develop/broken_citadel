@@ -26,6 +26,7 @@ func get_state():
 	]
 
 func set_state(data):
+	if data == []: return
 	CAMERA_NODE = data[0]
 	follow_speed = data[1]
 	perfer_zoom = data[2]

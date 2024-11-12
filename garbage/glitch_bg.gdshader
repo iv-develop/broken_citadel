@@ -3,7 +3,7 @@ shader_type canvas_item;
 
 uniform sampler3D NOISE;
 void fragment() {
-	float noiseValue = texture(NOISE, vec3(UV * 0.5, sin(TIME * 0.04) * 0.25 + 0.5)).x;
+	float noiseValue = texture(NOISE, vec3(UV * 0.5, sin(TIME * 0.05) * 0.25 + 0.5)).x;
 	noiseValue = noiseValue * noiseValue;
 	vec3 tex = texture(TEXTURE, UV * 0.5).rgb;
 	vec3 c = texture(TEXTURE, UV).rgb;

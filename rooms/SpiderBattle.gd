@@ -15,6 +15,8 @@ func _on_trigger_body_entered(body: Node2D) -> void:
 	if !body.is_in_group("Player"): return
 	if GAME.spider_defeated: return
 	if !battle_started:
+		$Awake.play()
+		GAME.set_music("Boss0", 2.0)
 		battle_started = true
 		CAMERA.shake(0.01, 2.0, 0.5)
 		time_for_attack = 5.0
@@ -28,7 +30,6 @@ var waves_spawned = 0
 
 func try_spawn_paryable(dir, waves=4):
 	if randf() > 0.85 and waves_spawned > waves:
-		print("spawned")
 		var bullet = GAME.bullet.duplicate()
 		bullet.parryable = true
 		bullet.collision_mask = 1
@@ -71,6 +72,7 @@ func _process(delta: float) -> void:
 						global_position.x - 600 * r + randf() * 10,
 						global_position.y - 400 * randf()
 					)
+					bullet.global_position = round(bullet.global_position / 16) * 16
 				time_for_attack = spawn_delay + randf() * 0.5
 			Attacks.UpAttack:
 				try_spawn_paryable(dir)
@@ -86,6 +88,7 @@ func _process(delta: float) -> void:
 						global_position.x + 180 * spider_hp * (randf() * 2.0 - 1.0),
 						global_position.y - 400 + (randf() * 2.0 - 1.0) * 10
 					)
+					bullet.global_position = round(bullet.global_position / 16) * 16
 				time_for_attack = spawn_delay + randf() * 0.5
 			Attacks.DownAttack:
 				try_spawn_paryable(dir)
@@ -101,6 +104,7 @@ func _process(delta: float) -> void:
 						global_position.x + 180 * spider_hp * (randf() * 2.0 - 1.0),
 						global_position.y + 30 + (randf() * 2.0 - 1.0) * 10
 					)
+					bullet.global_position = round(bullet.global_position / 16) * 16
 				time_for_attack = spawn_delay + randf() * 0.5
 			Attacks.Wait:
 				current_attack = [Attacks.SideAttack, Attacks.UpAttack, Attacks.DownAttack][randi_range(0, 2)]
@@ -141,8 +145,10 @@ func _on_hit_body_entered(body: Node2D) -> void:
 			CAMERA.shake(0.01, 5.0, 0.5)
 			clear_field(0.4)
 			spider_hp -= 1
+			$Hurt.play()
 			if spider_hp <= 0:
 				battle_started = false
+				GAME.set_music("MusicBG")
 				$PickUp.show()
 				$PickUp.monitorable = true
 				$PickUp.monitoring = true

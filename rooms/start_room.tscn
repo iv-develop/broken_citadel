@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cpu2cb7dequt0" path="res://assets/images/infested_ground.png" id="4_hlwg6"]
 [ext_resource type="Texture2D" uid="uid://b45fn0oqvyel8" path="res://assets/images/tilepack.png" id="5_sa6le"]
 [ext_resource type="Texture2D" uid="uid://yx6ca0ryh3ix" path="res://assets/raw/float.png" id="6_m0fjw"]
-[ext_resource type="Shader" path="res://garbage/test.gdshader" id="7_5smcj"]
+[ext_resource type="Shader" path="res://garbage/float_dist.gdshader" id="7_5smcj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x2jtl"]
 texture = ExtResource("3_elbq1")
@@ -876,6 +876,7 @@ shader_parameter/noiseQuality = 250.0
 shader_parameter/noiseIntensity = 0.007
 shader_parameter/offsetIntensity = 0.01
 shader_parameter/colorOffsetIntensity = 1.3
+shader_parameter/color = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ot142"]
 size = Vector2(60, 60)
@@ -900,7 +901,7 @@ rotation = 3.14159
 tile_set = SubResource("TileSet_w334f")
 
 [node name="Hint" type="Area2D" parent="." groups=["Damagable", "Resetable"]]
-position = Vector2(152, -66)
+position = Vector2(120, -86)
 collision_mask = 0
 monitoring = false
 script = ExtResource("1_18dxt")
@@ -926,6 +927,7 @@ theme_override_fonts/font = ExtResource("2_w67xf")
 theme_override_font_sizes/font_size = 10
 text = "A/D - ходить
 Пробел - прыжок
+Esc/I - открыть настройки
 ТАМ НЕ ПРОЙТИ -->
 <-- ИДИ ТУДА
 

@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://dptu6evvm8but" path="res://assets/sound/string.wav" id="4_3kb2o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8apu"]
-size = Vector2(20, 37)
+size = Vector2(20, 200)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l250n"]
 size = Vector2(20, 200)
@@ -92,7 +92,7 @@ initial_velocity_max = 200.0
 color = Color(1, 1, 1, 0.388235)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -18.5)
+position = Vector2(0, -100)
 shape = SubResource("RectangleShape2D_v8apu")
 
 [node name="Flow" type="Area2D" parent="."]

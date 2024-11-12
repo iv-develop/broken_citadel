@@ -26,7 +26,8 @@ func _process(delta: float) -> void:
 
 func reset():
 	if is_instance_valid(instance): instance.queue_free()
-	var n = clone.duplicate()
-	time_since_despawn = 0.0
-	instance = n
-	add_child(n)
+	if clone:
+		var n = clone.duplicate()
+		time_since_despawn = 0.0
+		instance = n
+		add_child(n)

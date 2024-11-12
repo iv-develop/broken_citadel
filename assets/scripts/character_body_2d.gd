@@ -72,21 +72,44 @@ var c_sword_delay = 0.0
 var sequence_progression = 0
 var attack_buffer = 0.0
 var attack_buffer_max = 0.08
+const actions = [
+	"ui_up",
+	"ui_down",
+	"ui_left",
+	"ui_right",
+	"A",
+	"B"
+]
+
+func other_pressed():
+	for action in actions:
+		if Input.is_action_just_pressed(action): return true
+	return false
 func _physics_process(delta: float) -> void:
 	match sequence_progression:
 		0: if Input.is_action_just_pressed("ui_up"): sequence_progression += 1
+		elif other_pressed(): sequence_progression = 0
 		1: if Input.is_action_just_pressed("ui_up"): sequence_progression += 1
+		elif other_pressed(): sequence_progression = 0
 		2: if Input.is_action_just_pressed("ui_down"): sequence_progression += 1
+		elif other_pressed(): sequence_progression = 0
 		3: if Input.is_action_just_pressed("ui_down"): sequence_progression += 1
+		elif other_pressed(): sequence_progression = 0
 		4: if Input.is_action_just_pressed("ui_left"): sequence_progression += 1
+		elif other_pressed(): sequence_progression = 0
 		5: if Input.is_action_just_pressed("ui_right"): sequence_progression += 1
+		elif other_pressed(): sequence_progression = 0
 		6: if Input.is_action_just_pressed("ui_left"): sequence_progression += 1
+		elif other_pressed(): sequence_progression = 0
 		7: if Input.is_action_just_pressed("ui_right"): sequence_progression += 1
+		elif other_pressed(): sequence_progression = 0
 		8: if Input.is_action_just_pressed("B"): sequence_progression += 1
+		elif other_pressed(): sequence_progression = 0
 		9: if Input.is_action_just_pressed("A"): sequence_progression += 1
+		elif other_pressed(): sequence_progression = 0
 		10:
 			sequence_progression = 0
-			GAME.game_root.get_node("MUSIC/SECRET").play()
+			GAME.set_music("SECRET")
 	
 	if Input.is_action_pressed("B") and Input.is_key_pressed(KEY_SHIFT):
 		heal(6)

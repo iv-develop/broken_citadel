@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b45fn0oqvyel8" path="res://assets/images/tilepack.png" id="4_lcwiy"]
 [ext_resource type="AudioStream" uid="uid://dptu6evvm8but" path="res://assets/sound/string.wav" id="4_odtoh"]
 [ext_resource type="Texture2D" uid="uid://yx6ca0ryh3ix" path="res://assets/raw/float.png" id="5_sa2tw"]
-[ext_resource type="Shader" path="res://garbage/test.gdshader" id="6_3juml"]
+[ext_resource type="Shader" path="res://garbage/float_dist.gdshader" id="6_3juml"]
 [ext_resource type="Script" path="res://assets/scripts/DEATH.gd" id="8_wyswu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6wu76"]

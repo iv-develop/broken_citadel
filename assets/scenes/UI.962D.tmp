@@ -1,0 +1,315 @@
+[gd_scene load_steps=14 format=3 uid="uid://i8hbwln3yoky"]
+
+[ext_resource type="Script" path="res://assets/scripts/postfx.gd" id="1_12btk"]
+[ext_resource type="Shader" path="res://garbage/postprocess.gdshader" id="2_1u8jo"]
+[ext_resource type="AudioStream" uid="uid://dq0yoais30be8" path="res://assets/sound/respawn.wav" id="2_prlxm"]
+[ext_resource type="Texture2D" uid="uid://15mgo2eob8f6" path="res://assets/images/health.png" id="3_pfjk5"]
+[ext_resource type="Shader" path="res://garbage/float_dist.gdshader" id="5_j84lb"]
+[ext_resource type="Texture2D" uid="uid://cas38ldsf5ivf" path="res://assets/images/slider.png" id="6_w5v5k"]
+[ext_resource type="Texture2D" uid="uid://b4yvx6l8oanoh" path="res://assets/images/slider1.png" id="7_wo4yh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crepx"]
+shader = ExtResource("2_1u8jo")
+shader_parameter/progress = 0.0
+
+[sub_resource type="Animation" id="Animation_7qoif"]
+resource_name = "InOut"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.4, 0.733333, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 0.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../GAME")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.466667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"checkpoint_transition_hook"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_5pwc6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_umerr"]
+_data = {
+"InOut": SubResource("Animation_7qoif"),
+"RESET": SubResource("Animation_5pwc6")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3xsc4"]
+shader = ExtResource("5_j84lb")
+shader_parameter/range = 0.05
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.0088
+shader_parameter/offsetIntensity = 0.03
+shader_parameter/colorOffsetIntensity = 1.3
+shader_parameter/color = Color(0.233925, 0.233925, 0.233925, 1)
+
+[sub_resource type="Theme" id="Theme_qdtem"]
+Button/colors/font_color = Color(0.863432, 0.0553792, 0.0318968, 1)
+HSlider/icons/grabber = ExtResource("6_w5v5k")
+HSlider/icons/grabber_highlight = ExtResource("7_wo4yh")
+
+[node name="UI" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_12btk")
+
+[node name="Respawn" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("2_prlxm")
+volume_db = -20.0
+pitch_scale = 0.9
+bus = &"FX"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 1
+material = SubResource("ShaderMaterial_crepx")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_umerr")
+}
+
+[node name="HealthContainer" type="HBoxContainer" parent="."]
+clip_contents = true
+offset_right = 36.0
+offset_bottom = 16.0
+scale = Vector2(2, 2)
+theme_override_constants/separation = 0
+
+[node name="0" type="Control" parent="HealthContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+
+[node name="Sprite" type="Sprite2D" parent="HealthContainer/0"]
+position = Vector2(8, 8)
+texture = ExtResource("3_pfjk5")
+hframes = 3
+
+[node name="1" type="Control" parent="HealthContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+
+[node name="Sprite" type="Sprite2D" parent="HealthContainer/1"]
+position = Vector2(8, 8)
+texture = ExtResource("3_pfjk5")
+hframes = 3
+
+[node name="2" type="Control" parent="HealthContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+
+[node name="Sprite" type="Sprite2D" parent="HealthContainer/2"]
+position = Vector2(8, 8)
+texture = ExtResource("3_pfjk5")
+hframes = 3
+
+[node name="SETTINGS" type="ColorRect" parent="."]
+process_mode = 3
+material = SubResource("ShaderMaterial_3xsc4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_qdtem")
+
+[node name="Label" type="Label" parent="SETTINGS"]
+process_mode = 3
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -43.0
+offset_right = 44.0
+offset_bottom = 154.0
+grow_horizontal = 2
+text = "НАСТРОЙКИ"
+vertical_alignment = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="SETTINGS"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="SETTINGS/CenterContainer"]
+process_mode = 3
+layout_mode = 2
+columns = 2
+
+[node name="MasterLabel" type="Label" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Мастер"
+
+[node name="MasterSlider" type="HSlider" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+max_value = 2.0
+step = 0.05
+value = 1.0
+
+[node name="SwordL" type="Label" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Меч"
+
+[node name="SwordS" type="HSlider" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+max_value = 2.0
+step = 0.05
+value = 1.0
+
+[node name="PlayerL" type="Label" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Игрок"
+
+[node name="PlayerS" type="HSlider" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+max_value = 2.0
+step = 0.05
+value = 1.0
+
+[node name="FXL" type="Label" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Эффекты"
+
+[node name="FXS" type="HSlider" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+max_value = 2.0
+step = 0.05
+value = 1.0
+
+[node name="MusicL" type="Label" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Музыка"
+
+[node name="MusicS" type="HSlider" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+max_value = 2.0
+step = 0.05
+value = 1.0
+
+[node name="FPS" type="Label" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Показать фпс"
+
+[node name="OptionButton" type="OptionButton" parent="SETTINGS/CenterContainer/GridContainer"]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Нет"
+popup/item_1/text = "Да"
+popup/item_1/id = 1
+
+[node name="Vsync" type="Label" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+layout_mode = 2
+text = "VSync"
+
+[node name="VSyncOP" type="OptionButton" parent="SETTINGS/CenterContainer/GridContainer"]
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "Disabled"
+popup/item_1/text = "Enabled"
+popup/item_1/id = 1
+popup/item_2/text = "Adaptive"
+popup/item_2/id = 2
+popup/item_3/text = "Mailbox"
+popup/item_3/id = 3
+
+[node name="SaveDelete" type="Label" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Сохранение"
+
+[node name="DeleteSave" type="Button" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+layout_mode = 2
+text = "УДАЛИТЕ МОЕ СОХРАНЕНИЕ"
+
+[node name="Container" type="Container" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+layout_mode = 2
+
+[node name="SaveDelete2" type="Label" parent="SETTINGS/CenterContainer/GridContainer"]
+process_mode = 3
+layout_mode = 2
+text = "(ТРЕБУЕТСЯ ПЕРЕЗАГРУЗКА)"
+
+[node name="FPS" type="Label" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+offset_right = 1.0
+grow_vertical = 0
+
+[connection signal="value_changed" from="SETTINGS/CenterContainer/GridContainer/MasterSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="SETTINGS/CenterContainer/GridContainer/SwordS" to="." method="_on_sword_s_value_changed"]
+[connection signal="value_changed" from="SETTINGS/CenterContainer/GridContainer/PlayerS" to="." method="_on_player_s_value_changed"]
+[connection signal="value_changed" from="SETTINGS/CenterContainer/GridContainer/FXS" to="." method="_on_fxs_value_changed"]
+[connection signal="value_changed" from="SETTINGS/CenterContainer/GridContainer/MusicS" to="." method="_on_music_s_value_changed"]
+[connection signal="toggled" from="SETTINGS/CenterContainer/GridContainer/OptionButton" to="." method="_on_option_button_toggled"]
+[connection signal="item_selected" from="SETTINGS/CenterContainer/GridContainer/VSyncOP" to="." method="_on_v_sync_op_item_selected"]
+[connection signal="pressed" from="SETTINGS/CenterContainer/GridContainer/DeleteSave" to="." method="_on_delete_save_pressed"]

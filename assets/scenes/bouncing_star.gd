@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 var vel = Vector2(100, 30)
-
+@export var min_y_vel = 200
 func _enter_tree() -> void:
 	if !parryable:
 		$Sprite2D.modulate = GAME.IMMORTAL
@@ -29,7 +29,7 @@ func _physics_process(delta: float) -> void:
 	if res:
 		var new_vel = vel.bounce(res.get_normal())
 		if new_vel.y < 0.0 and vel.y > 0.0:
-			new_vel.y = clamp(abs(vel.y), 200, 500) * 0.9 * sign(new_vel.y);
+			new_vel.y = clamp(abs(vel.y), min_y_vel, 500) * 0.9 * sign(new_vel.y);
 		vel = new_vel
 	else:
 		vel.x = move_toward(vel.x, 100 * sign(vel.x), delta)

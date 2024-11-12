@@ -1,12 +1,14 @@
-[gd_scene load_steps=33 format=4 uid="uid://dge3kog5l0h2g"]
+[gd_scene load_steps=35 format=4 uid="uid://dge3kog5l0h2g"]
 
 [ext_resource type="Script" path="res://rooms/SpiderBattle.gd" id="1_6wypb"]
 [ext_resource type="Script" path="res://assets/scripts/room.gd" id="1_j6j52"]
 [ext_resource type="Texture2D" uid="uid://ddgc10rnug5dx" path="res://assets/images/platforms.png" id="2_phspw"]
+[ext_resource type="AudioStream" uid="uid://bvd4kjbgsaxxa" path="res://assets/sound/Retro Impact Metal 36.wav" id="2_qldoh"]
 [ext_resource type="Texture2D" uid="uid://cpu2cb7dequt0" path="res://assets/images/infested_ground.png" id="3_eqskl"]
+[ext_resource type="AudioStream" uid="uid://cst57r3bme6aa" path="res://assets/sound/Retro Impact Metal 05.wav" id="3_pbgpw"]
 [ext_resource type="Texture2D" uid="uid://b45fn0oqvyel8" path="res://assets/images/tilepack.png" id="4_nr68s"]
 [ext_resource type="Texture2D" uid="uid://yx6ca0ryh3ix" path="res://assets/raw/float.png" id="5_udt88"]
-[ext_resource type="Shader" path="res://garbage/test.gdshader" id="6_lf3o0"]
+[ext_resource type="Shader" path="res://garbage/float_dist.gdshader" id="6_lf3o0"]
 [ext_resource type="Material" uid="uid://c0c5g3885bjiu" path="res://garbage/glitchify_material.tres" id="8_d8iua"]
 [ext_resource type="PackedScene" uid="uid://4yiets11yjks" path="res://assets/scenes/respawn_hook.tscn" id="8_fxew1"]
 [ext_resource type="Texture2D" uid="uid://ddhmwho6dyhp5" path="res://assets/images/glitch.png" id="9_ck8rg"]
@@ -901,6 +903,7 @@ shader_parameter/noiseQuality = 250.0
 shader_parameter/noiseIntensity = 0.007
 shader_parameter/offsetIntensity = 0.01
 shader_parameter/colorOffsetIntensity = 1.3
+shader_parameter/color = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ocm3"]
 size = Vector2(1000, 48)
@@ -1221,6 +1224,18 @@ size = Vector2(1000, 600)
 [node name="SpiderCave" type="Node2D" groups=["Resetable"]]
 process_mode = 3
 script = ExtResource("1_6wypb")
+
+[node name="Awake" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_qldoh")
+volume_db = -21.405
+pitch_scale = 0.47
+bus = &"Boss"
+
+[node name="Hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_pbgpw")
+volume_db = -36.8
+pitch_scale = 0.79
+bus = &"Boss"
 
 [node name="MapLayers" type="Node2D" parent="."]
 

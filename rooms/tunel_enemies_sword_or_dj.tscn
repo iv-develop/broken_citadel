@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cpu2cb7dequt0" path="res://assets/images/infested_ground.png" id="2_jqj7x"]
 [ext_resource type="Texture2D" uid="uid://b45fn0oqvyel8" path="res://assets/images/tilepack.png" id="3_eo0sn"]
 [ext_resource type="Texture2D" uid="uid://yx6ca0ryh3ix" path="res://assets/raw/float.png" id="4_wbfv2"]
-[ext_resource type="Shader" path="res://garbage/test.gdshader" id="5_sddhk"]
+[ext_resource type="Shader" path="res://garbage/float_dist.gdshader" id="5_sddhk"]
 [ext_resource type="PackedScene" uid="uid://4yiets11yjks" path="res://assets/scenes/respawn_hook.tscn" id="6_ffcp6"]
 [ext_resource type="PackedScene" uid="uid://bncxyy67gnkd6" path="res://assets/scenes/roller.tscn" id="7_sdgn8"]
 [ext_resource type="Script" path="res://assets/scripts/room.gd" id="8_drfil"]

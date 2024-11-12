@@ -38,6 +38,9 @@ func reset():
 	self.activated = false
 	if default_activated: self.activate()
 
+func take_damage(_a, _b, _c):
+	print("Stream hited!")
+
 func activate(q=false):
 	self.activated = true
 	if !q:
